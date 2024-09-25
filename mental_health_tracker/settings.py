@@ -26,6 +26,13 @@ SECRET_KEY = 'django-insecure-gy+r2$shqc5+fg6dx^*(qiu7fkb=@g#-7v^z*g$=ad*vbnxl9%
 # SECURITY WARNING: don't run with debug turned on in production!
 PRODUCTION = os.getenv("PRODUCTION", False)
 DEBUG = True
+STATIC_URL = '/static/'
+if DEBUG:
+    STATICFILES_DIRS = [
+        BASE_DIR / 'static' # merujuk ke /static root project pada mode development
+    ]
+else:
+    STATIC_ROOT = BASE_DIR / 'static' # merujuk ke /static root project pada mode production
 
 ALLOWED_HOSTS = ["localhost", "127.0.0.1", "muhammad-reyhan32-mentalhealthtracker.pbp.cs.ui.ac.id"]
 
@@ -50,6 +57,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', #Tambahkan tepat di bawah SecurityMiddleware
 ]
 
 ROOT_URLCONF = 'mental_health_tracker.urls'
